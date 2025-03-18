@@ -3,7 +3,6 @@
 
 # Week 8 - Research and Reflection Journal
 
-## Research and Reflection
 
 ### **Research a New Language**
 I explored **Haskell**, a functional programming language widely used in academia, financial modeling, and data analysis. 
@@ -49,5 +48,7 @@ Exploring open-source projects on GitHub revealed:
 - GitHub Explore. Open-source repository insights. Retrieved from [https://github.com/explore](https://github.com/explore)
 
 ---
+
+
 
 
