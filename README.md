@@ -175,6 +175,177 @@ I identified an issue in an open-source repository that aligns with my interests
 - GitHub Open Source Guide. Retrieved from [https://opensource.guide/](https://opensource.guide/)
 
 ---
+# Week 10 - Research and Reflection Journal
+
+## MV* Architecture: Overview and Key Insights
+
+This week I delved into MV* architectural patterns, shorthand for "Model-View-Whatever." MV* refers to a family of design patterns that separate an application into Models, Views, and some mediator (Controller, Presenter, ViewModel, etc.) ([StackOverflow, 2023](https://stackoverflow.com/questions/34828252/what-does-the-star-mean-in-mv)). The lecture emphasized that all MV* patterns share the goal of separating concerns – managing data, rendering UI, and processing input independently. According to Chirag Aggarwal, MVC, MVP, and MVVM focus on organizing code within an application by separating the data (Model), UI (View), and interaction logic ([Dev.to, 2021](https://dev.to/chiragagg5/mvc-mvp-and-mvvm-design-patterns-3h3a)).
+
+The lecture and Addy Osmani's writings further explain the main differences between MVC, MVP, and MVVM: how layers interact and depend on each other ([Osmani, 2012](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#detailmvcmvpandmvvm)). For example, MVVM uses a ViewModel to handle all communication between Model and View. In contrast, MVC uses a Controller as the mediator. All MV* patterns aim to create cleaner, modular, and testable applications.
+
+---
+
+## Model-View-Controller (MVC) Pattern
+
+MVC breaks applications into three components:
+
+- **Model**: Handles business logic and data ([Rascia, 2020](https://www.taniarascia.com/javascript-mvc-todo-app/)).
+- **View**: Manages the presentation layer and UI ([Rascia, 2020](https://www.taniarascia.com/javascript-mvc-todo-app/)).
+- **Controller**: Connects user input to model updates and view rendering ([Rascia, 2020](https://www.taniarascia.com/javascript-mvc-todo-app/)).
+
+The model and view should never directly interact. The controller mediates all updates, allowing for modular and maintainable applications ([Rascia, 2020](https://www.taniarascia.com/javascript-mvc-todo-app/)).
+
+**JavaScript MVC Example:**
+```javascript
+class Model {
+  constructor() {
+    this.todos = [];
+  }
+  addTodo(item) {
+    this.todos.push(item);
+  }
+}
+
+class View {
+  constructor() {
+    this.form = document.querySelector('#todo-form');
+    this.input = document.querySelector('#todo-input');
+    this.list = document.querySelector('#todo-list');
+  }
+  displayTodos(todos) {
+    this.list.innerHTML = todos.map(todo => `<li>${todo.text}</li>`).join('');
+  }
+  bindAddTodo(handler) {
+    this.form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (this.input.value) {
+        handler(this.input.value);
+        this.input.value = "";
+      }
+    });
+  }
+}
+
+class Controller {
+  constructor(model, view) {
+    this.model = model;
+    this.view = view;
+    this.view.displayTodos(this.model.todos);
+    this.view.bindAddTodo(this.handleAddTodo);
+  }
+  handleAddTodo = (todoText) => {
+    this.model.addTodo({ text: todoText, complete: false });
+    this.view.displayTodos(this.model.todos);
+  };
+}
+
+const app = new Controller(new Model(), new View());
+```
+
+---
+
+## Model-View-ViewModel (MVVM) Pattern
+
+MVVM also separates application layers:
+- **Model**: Represents application data ([Medium, 2023](https://medium.com/)).
+- **View**: Displays UI and is passive ([Dev.to, 2021](https://dev.to/makanjuoreoluwa/react-and-mvvm-separating-ui-and-logic-2p1e)).
+- **ViewModel**: Exposes model data and logic for the view, handling state and commands ([Osmani, 2012](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#detailmvcmvpandmvvm)).
+
+A core advantage of MVVM is **data binding** – a two-way link between the ViewModel and View, ensuring the UI auto-updates with model changes and vice versa.
+
+**React MVVM Example:**
+```jsx
+class TaskModel {
+  constructor() {
+    this.tasks = [];
+  }
+  addTask(task) {
+    this.tasks.push(task);
+  }
+  getAllTasks() {
+    return this.tasks;
+  }
+}
+
+import { useState } from 'react';
+function useTaskViewModel() {
+  const [taskModel] = useState(() => new TaskModel());
+  const addTask = (taskText) => {
+    taskModel.addTask(taskText);
+  };
+  const getAllTasks = () => taskModel.getAllTasks();
+  return { addTask, getAllTasks };
+}
+
+function TaskApp() {
+  const [input, setInput] = useState("");
+  const [tasks, setTasks] = useState([]);
+  const { addTask, getAllTasks } = useTaskViewModel();
+
+  const handleAdd = () => {
+    addTask(input);
+    setInput("");
+    setTasks(getAllTasks());
+  };
+
+  return (
+    <div>
+      <h1>Tasks</h1>
+      <input value={input} onChange={(e) => setInput(e.target.value)} />
+      <button onClick={handleAdd}>Add Task</button>
+      <ul>
+        {tasks.map((task, idx) => <li key={idx}>{task}</li>)}
+      </ul>
+    </div>
+  );
+}
+```
+
+This pattern simplifies testing and separation of logic ([BrightMarbles, 2023](https://brightmarbles.io/)).
+
+---
+
+## MV* in React + MongoDB (MERN Stack)
+
+In my MERN stack project:
+- **MVC** is applied to the backend:
+  - Model = MongoDB/Mongoose schemas
+  - View = React frontend
+  - Controller = Express API routes ([Medium, 2023](https://medium.com/))
+
+- **MVVM** fits the frontend:
+  - View = React components
+  - ViewModel = Contexts/hooks with logic and state
+  - Model = API service or backend
+
+As discussed on Reddit, React can be considered the VVM of MVVM, while the Model is implemented through services or external logic ([Reddit, 2022](https://www.reddit.com/))
+
+---
+
+
+## Reflection: Challenges and Solutions
+
+### Challenge
+Understanding and applying MVVM in React without two-way binding.
+
+### Solution
+- Used external tutorials to experiment ([Dev.to, 2021](https://dev.to/makanjuoreoluwa/react-and-mvvm-separating-ui-and-logic-2p1e))
+- Asked a classmate for architectural guidance
+- Broke the problem into small use-cases
+
+---
+
+## References
+- Stack Overflow. (2023). [MV* architecture definition](https://stackoverflow.com/questions/34828252/what-does-the-star-mean-in-mv)
+- Dev.to. (2021). Chirag Aggarwal, [MVC, MVP, MVVM](https://dev.to/chiragagg5/mvc-mvp-and-mvvm-design-patterns-3h3a)
+- Osmani, A. (2012). [JavaScript Design Patterns](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#detailmvcmvpandmvvm)
+- Rascia, T. (2020). [JavaScript MVC Example](https://www.taniarascia.com/javascript-mvc-todo-app/)
+- Medium. (2023). [MVVM in Web Development](https://medium.com/)
+- Dev.to. (2021). Makanju O. [React + MVVM guide](https://dev.to/makanjuoreoluwa/react-and-mvvm-separating-ui-and-logic-2p1e)
+- BrightMarbles. (2023). [MVVM Testing Benefits](https://brightmarbles.io/)
+- Reddit. (2022). [MVVM in React Discussion](https://www.reddit.com/)
+
+
 
 # Week 11 – Object-Oriented Programming
 
