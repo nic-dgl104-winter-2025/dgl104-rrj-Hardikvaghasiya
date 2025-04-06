@@ -176,6 +176,111 @@ I identified an issue in an open-source repository that aligns with my interests
 
 ---
 
+# Week 11 – Object-Oriented Programming
+
+## Research and Reflection
+
+### Object-Oriented Programming vs Functional Programming: Key Concepts from the Videos
+The two lecture videos this week provided a comparison between object-oriented programming (OOP) and functional programming. OOP focuses on organizing code into objects that bundle state (data) and behavior (methods). Functional programming, by contrast, emphasizes the use of pure functions and immutable data (YouTube, "Object-Oriented Programming vs Functional Programming"). While OOP allows state to be modified through methods on objects, functional programming avoids side effects, instead relying on predictable, pure function composition.
+
+JavaScript, as a multi-paradigm language, supports both OOP and functional styles. This was clearly shown in the videos, which argued that blending these paradigms often produces better code. For example, React has evolved from class-based (OOP) components to functional components using Hooks. This reflects a shift toward combining the strengths of both paradigms (YouTube, "JavaScript OOP: Encapsulation, Abstraction, Inheritance, and Polymorphism").
+
+### The Four Pillars of OOP in JavaScript
+
+#### Encapsulation
+Encapsulation involves hiding an object’s internal state and only exposing access through defined methods. This promotes modularity and prevents unintended interference with the object’s data.
+```js
+class Car {
+  constructor(brand) {
+    this._brand = brand;
+  }
+  get brand() {
+    return this._brand;
+  }
+  set brand(newBrand) {
+    this._brand = newBrand;
+  }
+}
+```
+(MDN, "Encapsulation – Glossary")
+
+#### Abstraction
+Abstraction hides complexity by exposing only necessary components. For example, a `Vehicle` class might have general methods like `startEngine()` without showing how the engine works.
+```js
+class Vehicle {
+  startEngine() {
+    console.log("Engine started");
+  }
+}
+```
+(MDN, "Abstraction – Glossary")
+
+#### Inheritance
+Inheritance allows classes to reuse properties and methods of other classes.
+```js
+class Animal {
+  speak() {
+    console.log("Animal speaks");
+  }
+}
+class Dog extends Animal {
+  speak() {
+    console.log("Dog barks");
+  }
+}
+```
+(MDN, "Object-Oriented Programming")
+
+#### Polymorphism
+Polymorphism allows the same method to behave differently depending on the object.
+```js
+function makeAnimalSpeak(animal) {
+  animal.speak();
+}
+makeAnimalSpeak(new Dog());  // Dog barks
+```
+
+
+### OOP in React.js and Project Implementation
+In React, OOP principles can be seen in both class and functional components. Class components encapsulate state and behavior, supporting encapsulation and inheritance via `React.Component`. Although React now prefers composition over inheritance, the essence of OOP remains through component encapsulation and reuse (React Documentation).
+
+On the backend, Mongoose provides an object model for MongoDB. Models created with Mongoose encapsulate schema logic and abstract database operations. This illustrates how OOP patterns like encapsulation and abstraction are used in a full-stack JavaScript project.
+
+### JavaScript as a Multi-Paradigm Language
+JavaScript supports both OOP and functional programming. Functions are first-class citizens, but the language also provides prototype-based and class-based OOP features. Developers can use the paradigm best suited to the task (MDN, "Object-Oriented Programming").
+
+### Best Practices and Real-World Applications
+Best practices in OOP include:
+- Favoring composition over inheritance (React Documentation).
+- Designing clear and abstract interfaces.
+- Using design patterns like Singleton and Observer where appropriate (Merced).
+- Following SOLID principles for maintainable architecture.
+
+For example, the Observer pattern is used in event systems, and the Singleton pattern can be used to manage a single database connection in Node.js (Merced).
+
+### Community and Open-Source Reflections
+Engaging with the open-source community was encouraged this week. I contributed to a GitHub repository by fixing documentation and asked a question on Stack Overflow about Mongoose schemas. This interaction highlighted how open source encourages collaborative problem-solving and aligns with course goals (Elliott).
+
+---
+
+## References
+
+- Blacquiere, Ashley. *DGL 104 Application Development Foundations*. Brightspace, 2025.
+- Mozilla Developer Network (MDN). “Encapsulation – Glossary.” *MDN Web Docs*, Mozilla, 8 June 2023, [https://developer.mozilla.org/en-US/docs/Glossary/Encapsulation](https://developer.mozilla.org/en-US/docs/Glossary/Encapsulation).
+- Mozilla Developer Network (MDN). “Abstraction – Glossary.” *MDN Web Docs*, Mozilla, 6 May 2024, [https://developer.mozilla.org/en-US/docs/Glossary/Abstraction](https://developer.mozilla.org/en-US/docs/Glossary/Abstraction).
+- Mozilla Developer Network (MDN). “Object-oriented programming.” *MDN Web Docs*, Mozilla, 6 Mar. 2025, [https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_programming](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_programming).
+- React Documentation. “Composition vs Inheritance.” *React.js Docs*, Meta, [https://reactjs.org/docs/composition-vs-inheritance.html](https://reactjs.org/docs/composition-vs-inheritance.html).
+- Zalewski, Bart. “Object-Oriented Programming in JavaScript with Examples (Updated 2024).” *Medium*, 2024, [https://medium.com/@bzalewski/object-oriented-programming-in-javascript](https://medium.com/@bzalewski/object-oriented-programming-in-javascript).
+- Elliott, Eric. “The Forgotten History of OOP.” *JavaScript Scene*, Medium, 2016, [https://medium.com/javascript-scene/the-forgotten-history-of-oop-88d71b9b2bfc](https://medium.com/javascript-scene/the-forgotten-history-of-oop-88d71b9b2bfc).
+- Merced, Alex. “OOP Design Patterns in JavaScript.” *DEV Community*, 2023, [https://dev.to/azure/oop-design-patterns-in-javascript-4m9h](https://dev.to/azure/oop-design-patterns-in-javascript-4m9h).
+- YouTube. “Object-Oriented Programming vs Functional Programming.” *YouTube*, uploaded by Tech with Tim, [https://youtu.be/hdVYcOgNKfc](https://youtu.be/hdVYcOgNKfc).
+- YouTube. “JavaScript OOP: Encapsulation, Abstraction, Inheritance, and Polymorphism.” *YouTube*, uploaded by BroCode, [https://youtu.be/jzP2sw3I1nc](https://youtu.be/jzP2sw3I1nc).
+
+---
+
+
+
+
 
 
 
