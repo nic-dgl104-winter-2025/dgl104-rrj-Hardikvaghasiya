@@ -133,115 +133,149 @@ Design patterns are reusable solutions to common programming challenges. I resea
 
 1. **Singleton Pattern**
    - **Purpose:** Ensures a class has only one instance and provides a global access point.
-   - **Real-world Application:** Used in database connection management.
-   - **Example:** A logging service that maintains a single instance throughout an application.
+   - **Real-world Application:** Used in logging services or shared configuration systems.
    - **Code Example (JavaScript):**
      ```javascript
      class Singleton {
          constructor() {
              if (!Singleton.instance) {
+                 this.theme = "dark";
                  Singleton.instance = this;
              }
              return Singleton.instance;
          }
+
+         getTheme() {
+             return this.theme;
+         }
+
+         setTheme(newTheme) {
+             this.theme = newTheme;
+         }
      }
 
-     const instance1 = new Singleton();
-     const instance2 = new Singleton();
-     console.log(instance1 === instance2); // Output: true
+     const app1 = new Singleton();
+     const app2 = new Singleton();
+     console.log(app1 === app2); // true
+     app1.setTheme("light");
+     console.log(app2.getTheme()); // "light"
      ```
+   - **Reference:** [Wikipedia - Singleton Pattern](https://en.wikipedia.org/wiki/Singleton_pattern), [Learning JS Design Patterns - Addy Osmani](https://addyosmani.com/resources/essentialjsdesignpatterns/book/), [GeeksForGeeks - Singleton in JavaScript](https://www.geeksforgeeks.org/singleton-design-pattern/)
 
 2. **Factory Pattern**
-   - **Purpose:** Provides an interface for creating objects, allowing subclasses to alter object creation.
-   - **Real-world Application:** Common in frameworks like Angular and Spring Boot.
-   - **Example:** A vehicle factory that creates different car models based on user input.
+   - **Purpose:** Provides an interface for creating objects without specifying their concrete class.
+   - **Real-world Application:** Object creation based on user input in games or form builders.
    - **Code Example (JavaScript):**
      ```javascript
-     class Car {
-         constructor(model) {
-             this.model = model;
+     class Developer {
+         constructor(name) {
+             this.name = name;
+             this.role = "Developer";
          }
      }
 
-     class CarFactory {
-         static createCar(model) {
-             return new Car(model);
+     class Tester {
+         constructor(name) {
+             this.name = name;
+             this.role = "Tester";
          }
      }
 
-     let myCar = CarFactory.createCar("Sedan");
-     console.log(myCar.model); // Output: Sedan
+     function employeeFactory(role, name) {
+         if (role === "dev") return new Developer(name);
+         if (role === "test") return new Tester(name);
+         throw new Error("Invalid role");
+     }
+
+     const emp1 = employeeFactory("dev", "Alice");
+     const emp2 = employeeFactory("test", "Bob");
+     console.log(emp1, emp2);
      ```
+   - **Reference:** [Wikipedia - Factory Method Pattern](https://en.wikipedia.org/wiki/Factory_method_pattern), [Refactoring Guru - Factory](https://refactoring.guru/design-patterns/factory-method), [DigitalOcean](https://www.digitalocean.com/community/tutorials/js-design-patterns-factory)
 
 3. **Observer Pattern**
-   - **Purpose:** Defines a dependency between objects so that when one object changes, others are notified.
-   - **Real-world Application:** Used in event-driven programming like GUI applications.
-   - **Example:** A news subscription service where users receive updates when new articles are published.
+   - **Purpose:** Defines a one-to-many dependency between objects so that when one changes, all dependents are notified.
+   - **Real-world Application:** News subscriptions, UI frameworks (e.g., event listeners).
    - **Code Example (JavaScript):**
      ```javascript
-     class NewsPublisher {
+     class Subject {
          constructor() {
-             this.subscribers = [];
+             this.observers = [];
          }
-         subscribe(subscriber) {
-             this.subscribers.push(subscriber);
+         subscribe(observer) {
+             this.observers.push(observer);
          }
-         notify(news) {
-             this.subscribers.forEach(sub => sub.update(news));
+         unsubscribe(observer) {
+             this.observers = this.observers.filter(obs => obs !== observer);
          }
-     }
-
-     class Subscriber {
-         update(news) {
-             console.log(`Breaking News: ${news}`);
+         notify(data) {
+             this.observers.forEach(obs => obs.update(data));
          }
      }
 
-     let publisher = new NewsPublisher();
-     let user1 = new Subscriber();
-     publisher.subscribe(user1);
-     publisher.notify("New article published!");
+     class Observer {
+         constructor(name) {
+             this.name = name;
+         }
+         update(data) {
+             console.log(`${this.name} received update: ${data}`);
+         }
+     }
+
+     const subject = new Subject();
+     const o1 = new Observer("A");
+     const o2 = new Observer("B");
+     subject.subscribe(o1);
+     subject.subscribe(o2);
+     subject.notify("Update 1");
      ```
+   - **Reference:** [Wikipedia - Observer Pattern](https://en.wikipedia.org/wiki/Observer_pattern), [Refactoring Guru - Observer](https://refactoring.guru/design-patterns/observer), [JavaScript Info - Observers](https://javascript.info/custom-events)
 
 4. **Decorator Pattern**
    - **Purpose:** Adds additional responsibilities to an object dynamically without modifying its structure.
-   - **Real-world Application:** Used in UI development for dynamically adding behaviors.
-   - **Example:** A text editor where users can apply different styles like bold or italic dynamically.
+   - **Real-world Application:** Enhancing UI elements (e.g., applying styles dynamically).
    - **Code Example (JavaScript):**
      ```javascript
-     function boldDecorator(textFunction) {
-         return function() {
-             return `<b>${textFunction()}</b>`;
-         };
+     class Coffee {
+         getCost() { return 5; }
+         getDescription() { return "Plain Coffee"; }
      }
 
-     function getText() {
-         return "Hello, world!";
+     class MilkDecorator {
+         constructor(coffee) {
+             this.coffee = coffee;
+         }
+         getCost() {
+             return this.coffee.getCost() + 1;
+         }
+         getDescription() {
+             return this.coffee.getDescription() + ", Milk";
+         }
      }
 
-     const decoratedText = boldDecorator(getText);
-     console.log(decoratedText()); // Output: <b>Hello, world!</b>
+     let myCoffee = new Coffee();
+     myCoffee = new MilkDecorator(myCoffee);
+     console.log(myCoffee.getDescription(), myCoffee.getCost());
      ```
+   - **Reference:** [Wikipedia - Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern), [Refactoring Guru - Decorator](https://refactoring.guru/design-patterns/decorator), [freeCodeCamp Decorator Tutorial](https://www.freecodecamp.org/news/javascript-design-patterns-decorator/)
 
 ### **Reflection on Open Source Contributions**
-I explored GitHub’s "How to Contribute to Open Source" guide and learned about different contribution methods:
-- **Documentation Improvements:** Many open-source projects need better documentation.
-- **Bug Fixing:** Fixing minor issues is a great way to start contributing.
-- **Feature Requests & Implementations:** Adding new functionalities based on user feedback.
-
-I also explored open-source repositories and noted that many projects emphasize **modularity** and **code readability**, making collaboration easier.
+- GitHub's guide taught me that documentation updates, bug fixing, and feature suggestions are all valuable contributions.
+- I found that many projects prioritize modularity and clarity, making collaboration easier.
+- Reference: [GitHub Open Source Guide](https://opensource.guide/)
 
 ### **Application Development Coding Project**
-- Our group has set up a GitHub repository and shared the link with you.
-- We are discussing project requirements and establishing a development workflow.
+- Our team created a GitHub repo and shared it with the instructor.
+- We are refining project goals and establishing a workflow.
 
 ### **Issue Identification & Slack Summary**
-I identified an issue in an open-source repository that aligns with my interests. The repository focuses on React Native UI components, and the issue involves improving the accessibility of a navigation bar. I shared my findings on Slack, including a link to the issue and why I believe it is a good contribution opportunity.
+- I identified an issue related to accessibility in a React Native UI library.
+- It’s a meaningful opportunity because it directly impacts usability and inclusivity.
 
 ### **Follow-up Questions & Reflection**
-1. **Is React Native still the best choice?** Yes, because of its cross-platform capabilities and ease of use.
-2. **Application Development Plan:** We are drafting a project timeline with key milestones to meet deadlines.
-3. **Observations from GitHub Contributions:** Open-source projects require clear issue tracking and collaboration, making communication essential for success.
+1. **Language Confirmation:** React Native still aligns with our goals due to its cross-platform advantages.
+2. **Project Timeline:** We’ve outlined milestones and assigned initial tasks.
+3. **Open Source Learnings:** Emphasized the need for clear issues, good first issues, and the importance of communication.
 
 ---
 
@@ -249,6 +283,13 @@ I identified an issue in an open-source repository that aligns with my interests
 - *Learning JavaScript Design Patterns* by Addy Osmani. Retrieved from [https://addyosmani.com/resources/essentialjsdesignpatterns/book/](https://addyosmani.com/resources/essentialjsdesignpatterns/book/)
 - *Refactoring Guru - Design Patterns*. Retrieved from [https://refactoring.guru/design-patterns](https://refactoring.guru/design-patterns)
 - GitHub Open Source Guide. Retrieved from [https://opensource.guide/](https://opensource.guide/)
+- Wikipedia - [Singleton](https://en.wikipedia.org/wiki/Singleton_pattern), [Factory](https://en.wikipedia.org/wiki/Factory_method_pattern), [Observer](https://en.wikipedia.org/wiki/Observer_pattern), [Decorator](https://en.wikipedia.org/wiki/Decorator_pattern)
+- Patterns.dev. Design Patterns in JavaScript. Retrieved from [https://www.patterns.dev](https://www.patterns.dev)
+- GeeksForGeeks - [Singleton in JavaScript](https://www.geeksforgeeks.org/singleton-design-pattern/)
+- DigitalOcean - [Factory Pattern](https://www.digitalocean.com/community/tutorials/js-design-patterns-factory)
+- JavaScript Info - [Custom Events & Observer](https://javascript.info/custom-events)
+- freeCodeCamp - [JavaScript Decorator Pattern](https://www.freecodecamp.org/news/javascript-design-patterns-decorator/)
+
 
 ---
 # Week 10 - Research and Reflection Journal
