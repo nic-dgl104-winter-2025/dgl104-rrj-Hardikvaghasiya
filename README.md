@@ -449,3 +449,134 @@ Engaging with the open-source community was encouraged this week. I contributed 
 
 ---
 
+## Week 12 – Functional Programming
+
+### Imperative vs. Declarative Paradigms
+
+In **imperative programming**, the code describes *how* to do something – it uses statements that change a program’s state step by step ([Wikipedia - Imperative programming](https://en.wikipedia.org/wiki/Imperative_programming)).
+
+By contrast, **declarative programming** focuses on *what outcome* is desired, not the exact steps to get there ([Wikipedia - Declarative programming](https://en.wikipedia.org/wiki/Declarative_programming)). Functional programming falls under this category. Declarative approaches often eliminate side effects and are more expressive of the problem logic.
+
+### The Functional Programming Paradigm
+
+**Functional programming (FP)** builds programs by applying and composing functions. It's declarative, emphasizes **pure functions**, **immutability**, and **higher-order functions**, and avoids shared state ([Wikipedia - Functional programming](https://en.wikipedia.org/wiki/Functional_programming)).
+
+Key traits:
+
+- Functions are **first-class**: passable as values.
+- Functions are **pure**: no side effects.
+- Avoids mutable data.
+
+Benefits include simplicity, testability, and easier reasoning ([Medium](https://medium.com)).
+
+### Pure Functions and Side Effects
+
+A **pure function**:
+
+1. Always returns the same output for the same input.
+2. Has no side effects ([Wikipedia - Pure function](https://en.wikipedia.org/wiki/Pure_function)).
+
+**Side effects** include modifying global state, printing, or performing I/O.
+
+**Referential transparency** means expressions can be replaced with their values without changing program behavior ([Wikipedia - Referential transparency](https://en.wikipedia.org/wiki/Referential_transparency)).
+
+### Higher-Order Functions (HOFs)
+
+A **higher-order function** takes/returns another function ([Wikipedia - Higher-order function](https://en.wikipedia.org/wiki/Higher-order_function)).
+
+JavaScript supports this via:
+
+#### `filter()`
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+const evens = numbers.filter(x => x % 2 === 0);
+console.log(evens); // [2, 4]
+```
+
+[MDN - filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+#### `map()`
+
+```js
+const nums = [1, 2, 3, 4];
+const squares = nums.map(n => n * n);
+console.log(squares); // [1, 4, 9, 16]
+console.log(nums);    // [1, 2, 3, 4]
+```
+
+[MDN - map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+
+#### `reduce()`
+
+```js
+const values = [5, 10, 15];
+const total = values.reduce((acc, curr) => acc + curr, 0);
+console.log(total); // 30
+```
+
+[MDN - reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+
+#### `sort()`
+
+```js
+const names = ["Charlie", "alice", "Bob"];
+names.sort();
+console.log(names); // ["Bob", "Charlie", "alice"]
+
+names.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+console.log(names); // ["alice", "Bob", "Charlie"]
+```
+
+[MDN - sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+
+### Recursion
+
+Used to break a problem into smaller sub-problems ([Wikipedia - Recursion](https://en.wikipedia.org/wiki/Recursion_\(computer_science\))).
+
+#### Example:
+
+```js
+function factorial(n) {
+  if (n <= 1) return 1;
+  return n * factorial(n - 1);
+}
+console.log(factorial(5)); // 120
+```
+
+### Functional Programming in Multi-Paradigm Languages
+
+**JavaScript**: Supports FP through first-class functions, array methods, and libraries like Lodash ([iq.js.org](https://iq.js.org)).
+
+**Kotlin**: Offers lambdas, HOFs, and collection operations ([Medium - Kotlin FP](https://medium.com)).
+
+**Swift**: Features `map`, `filter`, `reduce`, closures, and lazy sequences ([Wikipedia - Swift](https://en.wikipedia.org/wiki/Swift_\(programming_language\))).
+
+Others include Python, Java (Streams), and C# (LINQ).
+
+### Benefits of Functional List Operations
+
+- **Clarity**: Express what, not how ([Medium](https://medium.com), [Dev.to](https://dev.to)).
+- **Immutability**: No unintended side effects ([Wikipedia - Functional programming](https://en.wikipedia.org/wiki/Functional_programming)).
+- **Modularity**: Composable functions ([Dev.to](https://dev.to)).
+- **Testability**: Easy to test pure functions.
+- **Parallelism**: Safe concurrent operations ([Dev.to - FP](https://dev.to)).
+- **Explicit State**: State is passed, not mutated.
+
+### References
+
+- [Imperative programming](https://en.wikipedia.org/wiki/Imperative_programming)
+- [Declarative programming](https://en.wikipedia.org/wiki/Declarative_programming)
+- [Functional programming](https://en.wikipedia.org/wiki/Functional_programming)
+- [Pure function](https://en.wikipedia.org/wiki/Pure_function)
+- [Higher-order function](https://en.wikipedia.org/wiki/Higher-order_function)
+- [Array.prototype.filter() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+- [Array.prototype.map() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+- [Array.prototype.reduce() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+- [Array.prototype.sort() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+- [Recursion - Wikipedia](https://en.wikipedia.org/wiki/Recursion_\(computer_science\))
+- [JS Paradigms](https://iq.js.org)
+- [Kotlin & FP - Medium](https://medium.com)
+- [Swift](https://en.wikipedia.org/wiki/Swift_\(programming_language\))
+- [Dev.to FP Benefits](https://dev.to)
+
