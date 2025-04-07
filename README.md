@@ -3,17 +3,38 @@
 
 # Week 8 - Research and Reflection Journal
 
+## Research a New Language
 
-### **Research a New Language**
 I explored **Haskell**, a functional programming language widely used in academia, financial modeling, and data analysis. 
+
 - **Use cases:** High-assurance software, mathematical computations.
 - **Users:** Researchers, data scientists, and software engineers.
 - **Resources:** *Learn You a Haskell for Great Good!* and *Haskell.org* provide structured learning materials.
 
-### **Reflection on Slack Responses**
-Reading various posts on Slack highlighted the diversity of programming languages. I gained insights into Lua’s efficiency in game development and Processing’s accessibility for creative coding.
+### JavaScript Example Comparison
+To contrast Haskell’s pure functional approach, here’s a JavaScript version of a pure function for summing two numbers:
 
-### **User Story for Spotify**
+```js
+// Pure function in JavaScript
+function sum(a, b) {
+  return a + b;
+}
+
+console.log(sum(3, 4)); // 7
+```
+
+Unlike impure functions, this does not alter external state.
+
+---
+
+## Reflection on Slack Responses
+
+Reading various posts on Slack highlighted the diversity of programming languages. I gained insights into Lua’s efficiency in game development and Processing’s accessibility for creative coding. One thing that stood out was how user-centered language communities are, with Lua heavily supported in the game dev community, and Processing in visual arts and education.
+
+---
+
+## User Story for Spotify
+
 - *"As a user, I can create a playlist and add songs to it."*
 - *"As a user, I can share my playlist with friends."*
 - *"As a user, I can remove songs from my playlist."*
@@ -23,31 +44,86 @@ Reading various posts on Slack highlighted the diversity of programming language
 - Users should be able to search and add songs easily.
 - A straightforward delete option should be available for removing songs.
 
-### **Choosing a Programming Language for the Project**
+### JavaScript Example: Playlist Feature Logic
+
+```js
+// Playlist logic in JavaScript
+class Playlist {
+  constructor(name) {
+    this.name = name;
+    this.songs = [];
+  }
+
+  addSong(song) {
+    this.songs.push(song);
+  }
+
+  removeSong(title) {
+    this.songs = this.songs.filter(song => song.title !== title);
+  }
+}
+
+const myPlaylist = new Playlist("Workout Mix");
+myPlaylist.addSong({ title: "Thunderstruck", artist: "AC/DC" });
+myPlaylist.addSong({ title: "Stronger", artist: "Kanye West" });
+myPlaylist.removeSong("Thunderstruck");
+console.log(myPlaylist);
+```
+
+---
+
+## Choosing a Programming Language for the Project
+
 **Selected Language:** **React Native**
+
 - **Experience Level:** Moderate (one semester + personal projects).
-- **Reason for Choice:** Allows for cross-platform mobile app development, providing flexibility.
+- **Reason for Choice:** Allows for cross-platform mobile app development, providing flexibility and community support.
 
-### **Exploring GitHub Repositories**
+---
+
+## Exploring GitHub Repositories
+
 Exploring open-source projects on GitHub revealed:
-- Extensive **React Native repositories** for mobile development.
-- Functional programming applications for expanding Haskell knowledge.
-- UI/UX projects emphasizing user-friendly design.
+- Extensive **React Native** repositories for mobile development.
+- **Functional programming applications** in Haskell that reduce side effects.
+- UI/UX projects focusing on responsive, accessible design.
 
-### **Reflection**
-1. **Key Insight:** Haskell’s functional nature reduces bugs, making it suitable for high-reliability software.
-2. **Alternative Languages for DGL 104:** TypeScript and Dart due to their strong typing and mobile capabilities.
-3. **GitHub Observations:** Open-source projects emphasize modularity and efficiency, showcasing best practices in collaborative coding.
+### GitHub Example with JavaScript
+```js
+// Example of exploring starred repositories via GitHub REST API (token needed)
+fetch("https://api.github.com/users/{username}/starred")
+  .then(res => res.json())
+  .then(data => console.log("Starred Repositories:", data));
+```
+
+---
+
+## Reflection
+
+1. **Key Insight:** Haskell’s functional nature reduces bugs, making it ideal for high-reliability systems.
+2. **Alternative Languages for DGL 104:** TypeScript and Dart due to strong typing, scalability, and mobile/web support.
+3. **GitHub Observations:** Projects emphasize modularity and efficiency. Starred repositories often follow clean architecture and good documentation practices.
 
 ---
 
 ## References
+
 - Blacquiere, A. (2024). *DGL 104 Application Development Foundations*. Retrieved from Brightspace.
 - *Learn You a Haskell for Great Good!* (Haskell Tutorial). Retrieved from [http://learnyouahaskell.com](http://learnyouahaskell.com)
 - Haskell.org. Official Documentation. Retrieved from [https://www.haskell.org/](https://www.haskell.org/)
-- GitHub Explore. Open-source repository insights. Retrieved from [https://github.com/explore](https://github.com/explore)
+- Mozilla Developer Network. JavaScript Docs:
+  - [filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+  - [map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+  - [reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+  - [sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+- GitHub Docs: [GitHub Explore](https://github.com/explore)
+- React Native Docs: [https://reactnative.dev](https://reactnative.dev)
+- Lua.org. Official Docs. Retrieved from [https://www.lua.org](https://www.lua.org)
+- Processing.org: Creative coding in Processing. Retrieved from [https://processing.org](https://processing.org)
+- Dev.to (2023). *Unlocking the Power of Functional Programming*. Retrieved from [https://dev.to](https://dev.to)
+- Medium (2024). *Functional JavaScript and Modern App Development*. Retrieved from [https://medium.com](https://medium.com)
 
----
+
 
 # Week 9 - Research and Reflection Journal
 
