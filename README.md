@@ -289,6 +289,9 @@ Design patterns are reusable solutions to common programming challenges. I resea
 - DigitalOcean - [Factory Pattern](https://www.digitalocean.com/community/tutorials/js-design-patterns-factory)
 - JavaScript Info - [Custom Events & Observer](https://javascript.info/custom-events)
 - freeCodeCamp - [JavaScript Decorator Pattern](https://www.freecodecamp.org/news/javascript-design-patterns-decorator/)
+- DEV Community - [OOP Design Patterns in JavaScript](https://dev.to/azure/oop-design-patterns-in-javascript-4m9h)
+- Medium - [Explaining JavaScript Design Patterns](https://medium.com/javascript-scene/design-patterns-explained-with-javascript-7e8f7e6da2d)
+- Codeburst - [10 Common JavaScript Design Patterns](https://codeburst.io/10-common-javascript-design-patterns-3d9f9dbc1e5c)
 
 
 ---
